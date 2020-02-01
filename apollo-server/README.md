@@ -7,3 +7,5 @@ we indeed got this mock server by using the command `vue add apollo` to install 
 information [here](https://vue-cli-plugin-apollo.netlify.com/guide/server.html)
 
 More about using a mock apollo server can be found [here](https://www.apollographql.com/docs/graphql-tools/mocking/#Customizing-mocks)
+
+to run the apollo server, run `npm run apollo`
