@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p class="display-4 font-weight-black">A tool for Modern Democracies</p>
+    <h1 class="display-4 font-weight-black text-center">
+      A tool for Modern Democracies
+    </h1>
     <highlight-carousel></highlight-carousel>
     <v-row align="center">
       <v-col class="text-center" cols="12" sm="6">

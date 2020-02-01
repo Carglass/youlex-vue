@@ -4,6 +4,6 @@ export default {
   Lex: () => ({
     title: () => "A new Law",
     description: () => "Something that will be different",
-    img: () => "https://via.placholder.com/1500"
+    img: () => "https://via.placeholder.com/1500/FF0000/000000"
   })
 };
