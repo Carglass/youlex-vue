@@ -1,3 +1,11 @@
 module.exports = {
-  transpileDependencies: ["vuetify"]
+  transpileDependencies: ["vuetify"],
+
+  pluginOptions: {
+    apollo: {
+      enableMocks: true,
+      enableEngine: false,
+      lintGQL: true
+    }
+  }
 };
