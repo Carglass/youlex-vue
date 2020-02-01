@@ -1,7 +1,5 @@
 import shortid from "shortid";
 
 export default {
-  Query: {
-    hello: (root, { name }) => `Hello ${name || "World"}!`
-  }
+  Query: {}
 };

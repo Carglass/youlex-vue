@@ -1,0 +1,8 @@
+query Highlights {
+  highlights {
+    title
+    description
+    img
+    id
+  }
+}

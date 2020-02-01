@@ -2,9 +2,9 @@ type Lex {
   title: String!
   description: String
   img: String
+  id: ID!
 }
 
 type Query {
-  hello(name: String): String!
-  lexes(highlight: Boolean): [Lex]
+  highlights: [Lex]
 }
