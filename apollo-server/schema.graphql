@@ -1,9 +1,155 @@
+"Describes a Lex, which is the name of a project in Youlex"
 type Lex {
   title: String!
   description: String
   img: String
   id: ID!
+  contents: LexContents
+  questions: [Question]
+  debates: [Debate]
+  owner: MoralEntity
 }
+
+type LexContents {
+  preambule: String
+  sections: [LexSection]
+  "parent Lex, to easily find info about it"
+  lex: Lex
+}
+
+type LexSection {
+  title: String
+  articles: [LexArticle]
+  amendments: [Amendment]
+  "parent Lex, to easily find info about it"
+  lex: Lex
+}
+
+type LexArticle {
+  title: String
+  alineas: [LexAlinea]
+  amendments: [Amendment]
+  "parent Lex, to easily find info about it"
+  lex: Lex
+}
+
+type LexAlinea {
+  text: String
+  amendments: [Amendment]
+  "parent Lex, to easily find info about it"
+  lex: Lex
+}
+
+union LexElement = Lex | LexContents | LexSection | LexArticle | LexAlinea
+
+type Question {
+  title: String
+  text: String
+  answers: [Answer]
+  upvotes: Int
+  downvotes: Int
+  author: User
+  "could become LexElement"
+  lex: Lex
+}
+
+type Answer {
+  text: String
+  upvotes: Int
+  downvotes: Int
+  author: User
+  "could become LexElement"
+  lex: Lex
+  "parent question"
+  question: Question
+}
+
+type Debate {
+  title: String
+  text: String
+  tributes: [Tribute]
+  upvotes: Int
+  downvotes: Int
+  author: MoralEntity
+  "could become LexElement"
+  lex: Lex
+}
+
+type Tribute {
+  text: String
+  upvotes: Int
+  downvotes: Int
+  author: User
+  "could become LexElement"
+  lex: Lex
+  "parent debate" 
+  debate: Debate
+}
+
+"to be developped, but it needs a lot of things, since it has the diff etc, 
+also, do amendents have their own debates, or should specific debates target an amendment?"
+type Amendment {
+
+}
+
+"For now, only anonymous votes are considered"
+type Vote {
+  type: VoteType
+  upvote: Int
+  downvote: Int
+  target: VoteTarget
+}
+
+enum VoteType {
+  AMENDMENT
+  LEX
+}
+
+union VoteTarget = Lex | Amendment
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type Community {
+  id: ID!
+  name: String
+}
+
+union MoralEntity = User | Community
+
+type Feed {
+  type: FeedType
+  origin: MoralEntity
+  target: ActionTarget
+}
+
+"FeedType describes what type of news is being displayed in the Feed"
+enum FeedType {
+  "Creation of a new lex by someone watched"
+  CREATION
+  "Creation of a new lex for a bill in Legislation Authority"
+  BILL
+  "Creation of a Question on a watched Lex"
+  QUESTION
+  "Answer to a question from the user or watched"
+  ANSWER
+  "A vote has been open on a watched Lex"
+  OPENVOTE
+  "An amendment has been proposed on a watched Lex"
+  AMENDMENT
+  "A vote has been opened on a watched Amendment"
+  AMENDMENT_VOTE
+  "A debate has been opened on a watched Lex"
+  DEBATE
+  "A new tribute has been made to a watched debate"
+  DEBATE_TRIBUTE
+  "A new revision has been created on a watched Lex"
+  REVISION
+}
+
+union ActionTarget = Lex | Question | Answer | Vote | Amendment | Debate | Tribute
 
 type Query {
   highlights: [Lex]
