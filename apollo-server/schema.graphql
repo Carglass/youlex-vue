@@ -121,8 +121,9 @@ union MoralEntity = User | Community
 
 type Feed {
   type: FeedType
-  origin: MoralEntity
-  target: ActionTarget
+  subject: MoralEntity
+  target: YoulexItem
+  complement: YoulexItem
 }
 
 "FeedType describes what type of news is being displayed in the Feed"
@@ -149,8 +150,9 @@ enum FeedType {
   REVISION
 }
 
-union ActionTarget = Lex | Question | Answer | Vote | Amendment | Debate | Tribute
+union YoulexItem = Lex | Question | Answer | Vote | Amendment | Debate | Tribute
 
 type Query {
   highlights: [Lex]
+  feed: [Feed]
 }
