@@ -82,14 +82,16 @@ type Tribute {
   author: User
   "could become LexElement"
   lex: Lex
-  "parent debate" 
+  "parent debate"
   debate: Debate
 }
 
-"to be developped, but it needs a lot of things, since it has the diff etc, 
-also, do amendents have their own debates, or should specific debates target an amendment?"
+"""
+to be developped, but it needs a lot of things, since it has the diff etc,
+also, do amendents have their own debates, or should specific debates target an amendment?
+"""
 type Amendment {
-
+  text: String
 }
 
 "For now, only anonymous votes are considered"
