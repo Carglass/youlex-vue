@@ -1,0 +1,59 @@
+query Feed {
+  feed {
+    id
+    type
+    subject {
+      __typename
+      ... on User {
+        id
+        name
+      }
+      ... on Community {
+        id
+        name
+      }
+    }
+    target {
+      __typename
+      ... on Lex {
+        title
+      }
+      ... on Question {
+        title
+      }
+      ... on Answer {
+        title
+      }
+      ... on Amendment {
+        title
+      }
+      ... on Debate {
+        title
+      }
+      ... on Tribute {
+        title
+      }
+    }
+    complement {
+      __typename
+      ... on Lex {
+        title
+      }
+      ... on Question {
+        title
+      }
+      ... on Answer {
+        title
+      }
+      ... on Amendment {
+        title
+      }
+      ... on Debate {
+        title
+      }
+      ... on Tribute {
+        title
+      }
+    }
+  }
+}

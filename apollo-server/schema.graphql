@@ -1,60 +1,164 @@
-"Included scalars"
-scalar JSON
-scalar Upload
-
-"It will increment!"
-type Counter {
-  "Number of increments"
-  count: Int!
-  "Full message for testing"
-  countStr: String
-}
-
-"A text message send by users"
-type Message {
+"Describes a Lex, which is the name of a project in Youlex"
+type Lex {
+  title: String!
+  description: String
+  img: String
   id: ID!
-  "Message content"
-  text: String!
+  contents: LexContents
+  questions: [Question]
+  debates: [Debate]
+  owner: MoralEntity
 }
 
-"Input from user to create a message"
-input MessageInput {
-  "Message content"
-  text: String!
+type LexContents {
+  preambule: String
+  sections: [LexSection]
+  "parent Lex, to easily find info about it"
+  lex: Lex
 }
 
-type File {
+type LexSection {
+  title: String!
+  articles: [LexArticle]
+  amendments: [Amendment]
+  "parent Lex, to easily find info about it"
+  lex: Lex
+}
+
+type LexArticle {
+  title: String!
+  alineas: [LexAlinea]
+  amendments: [Amendment]
+  "parent Lex, to easily find info about it"
+  lex: Lex
+}
+
+type LexAlinea {
+  text: String
+  amendments: [Amendment]
+  "parent Lex, to easily find info about it"
+  lex: Lex
+}
+
+union LexElement = Lex | LexContents | LexSection | LexArticle | LexAlinea
+
+type Question {
+  title: String!
+  text: String
+  answers: [Answer]
+  upvotes: Int
+  downvotes: Int
+  author: User
+  "could become LexElement"
+  lex: Lex
+}
+
+type Answer {
+  title: String!
+  text: String
+  upvotes: Int
+  downvotes: Int
+  author: User
+  "could become LexElement"
+  lex: Lex
+  "parent question"
+  question: Question
+}
+
+type Debate {
+  title: String!
+  text: String
+  tributes: [Tribute]
+  upvotes: Int
+  downvotes: Int
+  author: MoralEntity
+  "could become LexElement"
+  lex: Lex
+}
+
+type Tribute {
+  title: String!
+  text: String
+  upvotes: Int
+  downvotes: Int
+  author: User
+  "could become LexElement"
+  lex: Lex
+  "parent debate"
+  debate: Debate
+}
+
+"""
+to be developped, but it needs a lot of things, since it has the diff etc,
+also, do amendents have their own debates, or should specific debates target an amendment?
+"""
+type Amendment {
+  title: String!
+  text: String
+}
+
+"For now, only anonymous votes are considered"
+type Vote {
+  type: VoteType
+  upvote: Int
+  downvote: Int
+  target: VoteTarget
+}
+
+enum VoteType {
+  AMENDMENT
+  LEX
+}
+
+union VoteTarget = Lex | Amendment
+
+type User {
   id: ID!
-  path: String!
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  name: String!
 }
 
+type Community {
+  id: ID!
+  name: String!
+}
+
+union MoralEntity = User | Community
+
+type Feed {
+  id: ID!
+  type: FeedType!
+  subject: MoralEntity!
+  target: YoulexItem!
+  complement: YoulexItem
+}
+
+"FeedType describes what type of news is being displayed in the Feed"
+enum FeedType {
+  "Creation of a new lex by someone watched"
+  CREATION
+  "Creation of a new lex for a bill in Legislation Authority"
+  BILL
+  "Creation of a Question on a watched Lex"
+  QUESTION
+  "Answer to a question from the user or watched"
+  ANSWER
+  "A vote has been open on a watched Lex"
+  OPENVOTE
+  "An amendment has been proposed on a watched Lex"
+  AMENDMENT
+  "A vote has been opened on a watched Amendment"
+  AMENDMENT_VOTE
+  "A debate has been opened on a watched Lex"
+  DEBATE
+  "A new tribute has been made to a watched debate"
+  DEBATE_TRIBUTE
+  "A new revision has been created on a watched Lex"
+  REVISION
+}
+
+union YoulexItem = Lex | Question | Answer | Amendment | Debate | Tribute
 
 type Query {
-  "Test query with a parameter"
-  hello(name: String): String!
-  "List of messages sent by users"
-  messages: [Message]
-  uploads: [File]
-
-}
-
-type Mutation {
-  myMutation: String!
-  "Add a message and publish it on 'messages' subscription channel"
-  addMessage (input: MessageInput!): Message!
-  singleUpload (file: Upload!): File!
-  multipleUpload (files: [Upload!]!): [File!]!
-
-}
-
-type Subscription {
-  mySub: String!
-  "This will update every 2 seconds"
-  counter: Counter!
-  "When a new message is added"
-  messageAdded: Message!
-
+  highlights: [Lex]
+  feed: [Feed]
 }
