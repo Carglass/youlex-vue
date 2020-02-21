@@ -18,7 +18,7 @@ type LexContents {
 }
 
 type LexSection {
-  title: String
+  title: String!
   articles: [LexArticle]
   amendments: [Amendment]
   "parent Lex, to easily find info about it"
@@ -26,7 +26,7 @@ type LexSection {
 }
 
 type LexArticle {
-  title: String
+  title: String!
   alineas: [LexAlinea]
   amendments: [Amendment]
   "parent Lex, to easily find info about it"
@@ -43,7 +43,7 @@ type LexAlinea {
 union LexElement = Lex | LexContents | LexSection | LexArticle | LexAlinea
 
 type Question {
-  title: String
+  title: String!
   text: String
   answers: [Answer]
   upvotes: Int
@@ -54,6 +54,7 @@ type Question {
 }
 
 type Answer {
+  title: String!
   text: String
   upvotes: Int
   downvotes: Int
@@ -65,7 +66,7 @@ type Answer {
 }
 
 type Debate {
-  title: String
+  title: String!
   text: String
   tributes: [Tribute]
   upvotes: Int
@@ -76,6 +77,7 @@ type Debate {
 }
 
 type Tribute {
+  title: String!
   text: String
   upvotes: Int
   downvotes: Int
@@ -91,6 +93,7 @@ to be developped, but it needs a lot of things, since it has the diff etc,
 also, do amendents have their own debates, or should specific debates target an amendment?
 """
 type Amendment {
+  title: String!
   text: String
 }
 
@@ -116,15 +119,16 @@ type User {
 
 type Community {
   id: ID!
-  name: String
+  name: String!
 }
 
 union MoralEntity = User | Community
 
 type Feed {
-  type: FeedType
-  subject: MoralEntity
-  target: YoulexItem
+  id: ID!
+  type: FeedType!
+  subject: MoralEntity!
+  target: YoulexItem!
   complement: YoulexItem
 }
 
@@ -152,7 +156,7 @@ enum FeedType {
   REVISION
 }
 
-union YoulexItem = Lex | Question | Answer | Vote | Amendment | Debate | Tribute
+union YoulexItem = Lex | Question | Answer | Amendment | Debate | Tribute
 
 type Query {
   highlights: [Lex]

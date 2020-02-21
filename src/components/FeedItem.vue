@@ -1,5 +1,5 @@
 <template>
-  <v-list-item two-line :key="id">
+  <v-list-item two-line :key="feedItemData.id">
     <v-list-item-content>
       <v-list-item-title>{{ text }}</v-list-item-title>
       <v-list-item-subtitle>
@@ -20,28 +20,8 @@ export default {
   name: "feedItem",
   components: { ActionIcon },
   props: {
-    type: {
-      type: String,
-      required: true
-    },
-    subject: {
-      // TODO could become a user?
-      type: String,
-      // Evaluate if eternal user such as Congress published bills is a subject or hardcoded
-      required: true
-    },
-    target: {
-      // TODO could become an object as well?
-      type: String,
-      required: true
-    },
-    complement: {
-      // TODO could potentially become an Array if more than one
-      type: String,
-      required: false
-    },
-    id: {
-      type: String,
+    feedItemData: {
+      type: Object,
       required: true
     }
   },
@@ -49,25 +29,25 @@ export default {
     text() {
       // returning the tet to display for a given feedItem type
       // it takes into account the subject, target etc through templating
-      switch (this.type) {
+      switch (this.feedItemData.type) {
         case "CREATION":
-          return `${this.subject} has created ${this.target}`;
+          return `${this.feedItemData.subject.name} has created ${this.feedItemData.target.title}`;
         case "QUESTION":
-          return `${this.subject} has raised a new question on ${this.complement}`;
+          return `${this.feedItemData.subject.name} has raised a new question on ${this.feedItemData.complement.title}`;
         case "ANSWER":
-          return `${this.subject} has answered ${this.target} in ${this.complement}`;
+          return `${this.feedItemData.subject.name} has answered ${this.feedItemData.target.title} in ${this.feedItemData.complement.title}`;
         case "OPENVOTE":
-          return `A vote has been opened by ${this.subject} on ${this.target}`;
+          return `A vote has been opened by ${this.feedItemData.subject.name} on ${this.feedItemData.target.title}`;
         case "AMENDMENT":
-          return `${this.subject} has created an amendment on ${this.target}`;
+          return `${this.feedItemData.subject.name} has created an amendment on ${this.feedItemData.target.title}`;
         case "AMENDMENT_VOTE":
-          return `A vote has been opened by ${this.subject} on the amendment ${this.target}`;
+          return `A vote has been opened by ${this.feedItemData.subject.name} on the amendment ${this.feedItemData.target.title}`;
         case "DEBATE":
-          return `${this.subject} has started a new debate on ${this.target}`;
+          return `${this.feedItemData.subject.name} has started a new debate on ${this.feedItemData.target.title}`;
         case "DEBATE_TRIBUTE":
-          return `${this.subject} reacted to ${this.target}`;
+          return `${this.feedItemData.subject.name} reacted to ${this.feedItemData.target.title}`;
         case "REVISION":
-          return `${this.subject} has released a new version of ${this.target}`;
+          return `${this.feedItemData.subject.name} has released a new version of ${this.feedItemData.target.title}`;
         default:
           // TODO for dev, needs to be removed or handled more gracefully eventually
           throw new Error("Feed Type is not correct");
@@ -75,7 +55,7 @@ export default {
     },
     mainAction() {
       // returning the main action for a given feedItem type
-      switch (this.type) {
+      switch (this.feedItemData.type) {
         case "CREATION":
           return "WATCH";
         case "QUESTION":
@@ -101,7 +81,7 @@ export default {
     },
     actions() {
       // listing the possible actions for a given feedItem type
-      switch (this.type) {
+      switch (this.feedItemData.type) {
         case "CREATION":
           return ["WATCH"];
         case "QUESTION":

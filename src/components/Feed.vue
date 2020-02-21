@@ -1,13 +1,7 @@
 <template>
   <v-list flat>
     <template v-for="feedItem in feedData">
-      <feed-item
-        :key="feedItem.id"
-        type="AMENDMENT"
-        :subject="feedItem.title"
-        :target="feedItem.title"
-        :id="feedItem.id.toString()"
-      ></feed-item>
+      <feed-item :key="feedItem.id" :feedItemData="feedItem"></feed-item>
     </template>
   </v-list>
 </template>

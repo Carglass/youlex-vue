@@ -12,32 +12,16 @@
         <v-btn block color="primary">Login</v-btn>
       </v-col>
     </v-row>
-    <feed :feedData="feed"></feed>
+    <feed-container></feed-container>
   </div>
 </template>
 
 <script>
 import HighlightCarousel from "./../components/HighlightCarousel";
-import Feed from "./../components/Feed";
+import FeedContainer from "./../components/FeedContainer";
 
 export default {
   name: "home",
-  components: { HighlightCarousel, Feed },
-  data() {
-    return {
-      feed: [
-        {
-          title: "Congress published a new bill",
-          description: "Hello hello",
-          id: 1
-        },
-        {
-          title: "Patrick commented on Ecology bill",
-          description: "Hello hello",
-          id: 2
-        }
-      ]
-    };
-  }
+  components: { HighlightCarousel, FeedContainer }
 };
 </script>
