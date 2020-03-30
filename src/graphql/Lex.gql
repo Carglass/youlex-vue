@@ -1,0 +1,27 @@
+query Lex {
+  lex {
+    title
+    description
+    contents {
+      preambule
+      sections {
+        title
+        articles {
+          title
+          alineas {
+            text
+          }
+        }
+      }
+    }
+    owner {
+      __typename
+      ... on User {
+        name
+      }
+      ... on Community {
+        name
+      }
+    }
+  }
+}

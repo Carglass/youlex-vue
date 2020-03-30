@@ -1,3 +1,9 @@
+type Query {
+  highlights: [Lex]
+  feed: [Feed]
+  lex: Lex
+}
+
 "Describes a Lex, which is the name of a project in Youlex"
 type Lex {
   title: String!
@@ -157,8 +163,3 @@ enum FeedType {
 }
 
 union YoulexItem = Lex | Question | Answer | Amendment | Debate | Tribute
-
-type Query {
-  highlights: [Lex]
-  feed: [Feed]
-}

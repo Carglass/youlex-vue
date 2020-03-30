@@ -9,6 +9,7 @@
         <v-toolbar-items>
           <v-btn to="/create" text>Lex do it!</v-btn>
           <v-btn to="/leges" text>My Leges</v-btn>
+          <v-btn to="/lex" text>Lex S</v-btn>
           <v-btn to="/search" text>Browse</v-btn>
           <v-btn to="/membership" text>Membership</v-btn>
           <v-btn to="/about" text>About</v-btn>
