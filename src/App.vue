@@ -2,21 +2,71 @@
   <div id="app">
     <v-app>
       <v-app-bar app>
-        <v-btn text to="/">
+        <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+
+        <v-toolbar-title text to="/">
           <v-toolbar-title>Youlex</v-toolbar-title>
-        </v-btn>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn to="/create" text>Lex do it!</v-btn>
-          <v-btn to="/leges" text>My Leges</v-btn>
-          <v-btn to="/lex" text>Lex S</v-btn>
-          <v-btn to="/search" text>Browse</v-btn>
-          <v-btn to="/membership" text>Membership</v-btn>
-          <v-btn to="/about" text>About</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn to="/login" text>Login</v-btn>
-        </v-toolbar-items>
+        <v-btn to="/login" text>Login</v-btn>
       </v-app-bar>
+      <v-navigation-drawer v-model="drawer" absolute temporary app>
+        <v-list nav dense>
+          <v-list-item-group
+            v-model="group"
+            active-class="deep-purple--text text--accent-4"
+          >
+            <v-list-item to="/">
+              <v-list-item-icon>
+                <v-icon>mdi-home</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Home</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/create">
+              <v-list-item-icon>
+                <v-icon>mdi-plus-circle</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Lex do it!</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/leges">
+              <v-list-item-icon>
+                <v-icon>mdi-book-open-page-variant</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Leges</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/lex">
+              <v-list-item-icon>
+                <v-icon>mdi-book-open-page-variant</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Lex</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/search">
+              <v-list-item-icon>
+                <v-icon>mdi-magnify</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Browse</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/membership">
+              <v-list-item-icon>
+                <v-icon>mdi-account-star</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Membership</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/about">
+              <v-list-item-icon>
+                <v-icon>mdi-help-circle</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>About</v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
       <v-content>
         <v-container fluid>
           <router-view />
@@ -30,3 +80,11 @@
     </v-app>
   </div>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    drawer: false
+  })
+};
+</script>
