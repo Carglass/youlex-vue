@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <v-app>
-      <v-app-bar app>
+      <v-app-bar app collapse-on-scroll>
         <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
         <v-toolbar-title text to="/">
           <v-toolbar-title>Youlex</v-toolbar-title>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn to="/login" text>Login</v-btn>
+        <v-btn to="/login" icon><v-icon>mdi-login</v-icon></v-btn>
       </v-app-bar>
-      <v-navigation-drawer v-model="drawer" absolute temporary app>
+      <v-navigation-drawer v-model="drawer" temporary app>
         <v-list nav dense>
           <v-list-item-group
             v-model="group"
@@ -68,9 +68,7 @@
         </v-list>
       </v-navigation-drawer>
       <v-content>
-        <v-container fluid>
-          <router-view />
-        </v-container>
+        <router-view />
       </v-content>
       <v-footer>
         <v-spacer></v-spacer>
