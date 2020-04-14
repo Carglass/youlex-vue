@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-card tile raised class="custom-top-card">{{ lexData.title }}</v-card>
     <v-card outlined fixed>
       <h1>{{ lexData.title }}</h1>
       <em>from {{ lexData.owner.name }}</em>
@@ -75,3 +76,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.custom-top-card {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 56px;
+  z-index: 1;
+  border-bottom-left-radius: 24px;
+}
+</style>
