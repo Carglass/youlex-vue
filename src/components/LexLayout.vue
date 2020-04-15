@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-card @click="$vuetify.goTo(0)" tile raised class="custom-top-card"
+    <v-card
+      max-width="50%"
+      @click="$vuetify.goTo(0)"
+      tile
+      raised
+      class="custom-top-card"
       ><v-row
         ><v-col class="pt-1" cols="8"
           ><div class="font-weight-bold">{{ lexData.title }}</div>
@@ -97,7 +102,6 @@ export default {
   z-index: 1;
   border-bottom-left-radius: 24px;
   background-color: #f5f5f5;
-  width: 50%;
   padding: 0px 20px;
 }
 </style>
