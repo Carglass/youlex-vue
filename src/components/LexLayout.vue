@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card tile raised class="custom-top-card"
+    <v-card @click="$vuetify.goTo(0)" tile raised class="custom-top-card"
       ><v-row
         ><v-col class="pt-1" cols="8"
           ><div class="font-weight-bold">{{ lexData.title }}</div>
