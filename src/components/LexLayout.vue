@@ -1,8 +1,19 @@
 <template>
   <div>
-    <v-card tile raised class="custom-top-card">{{ lexData.title }}</v-card>
+    <v-card tile raised class="custom-top-card"
+      ><v-row
+        ><v-col class="pt-1" cols="8"
+          ><div class="font-weight-bold">{{ lexData.title }}</div>
+          <div class="font-weight-thin font-italic">
+            {{ lexData.owner.name }}
+          </div></v-col
+        ><v-col cols="4"
+          ><v-btn icon><v-icon>mdi-arrow-collapse-up</v-icon></v-btn></v-col
+        ></v-row
+      ></v-card
+    >
     <v-card outlined fixed>
-      <h1>{{ lexData.title }}</h1>
+      <h1 class="">{{ lexData.title }}</h1>
       <em>from {{ lexData.owner.name }}</em>
       <blockquote>{{ lexData.description }}</blockquote>
     </v-card>
@@ -85,5 +96,8 @@ export default {
   height: 56px;
   z-index: 1;
   border-bottom-left-radius: 24px;
+  background-color: #f5f5f5;
+  width: 50%;
+  padding: 0px 20px;
 }
 </style>
